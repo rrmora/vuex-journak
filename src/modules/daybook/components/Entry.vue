@@ -1,19 +1,34 @@
 <template>
-  <div @click="$router.push({name: 'entry', params: {id: 10}})" class="entry-container mb-3 pointer p-2">
+  <div @click="$router.push({name: 'entry', params: {id: entry.id}})" class="entry-container mb-3 pointer p-2">
         <div class="entry-title d-flex">
-            <span class="text-success fs-5 fw-bold">15</span>
-            <span class="mx-1 fs5">julio</span>
-            <span class="mx-1 fw-light">2021, martes</span>
+            <span class="text-success fs-5 fw-bold">{{dayMonthYear.day}}</span>
+            <span class="mx-1 fs5">{{dayMonthYear.month}}</span>
+            <span class="mx-1 fw-light">{{dayMonthYear.yearDay}}</span>
         </div>
         <div class="entry-description">
-            In nulla do magna in laborum aute occaecat excepteur et et esse. Minim officia eiusmod ea ea consectetur fugiat exercitation laboris mollit. Reprehenderit culpa ut anim consectetur excepteur do aute magna voluptate. Dolor velit duis ad aliquip est. Occaecat duis pariatur laboris aliqua culpa nulla ad eu ullamco nisi sunt incididunt.
+            {{truncateText}}
         </div>
   </div>
 </template>
 
 <script>
+import getDayMonthYear from '../helpers/getDayMonthYear'
 export default {
-
+    props: {
+        entry: {
+            type: Object,
+            required: true,
+        }
+    },
+    computed: {
+        truncateText() {
+            return (this.entry.text.length > 150) ? this.entry.text.substring(0, 150) + '...': this.entry.text
+        },
+        dayMonthYear() {
+            const {day, month, yearDay} = getDayMonthYear(this.entry.date)
+            return {day, month, yearDay}
+        }
+    }
 }
 </script>
 
