@@ -1,5 +1,5 @@
 <template>
-      <button class="btn btn-primary text-center">
+      <button @click="$emit('on:click')" class="btn btn-primary text-center">
           <i class="fa fa-plus align-self-center" :class="icon"/>
       </button>
 </template>
